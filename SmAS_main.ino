@@ -8,6 +8,7 @@ int lcdColumns = 16;
 int lcdRows = 2;
 bool functionExecuted = false;
 const int sensor_pin = A0;
+const int pirPin = 12; 
 String messageStatic = "SMAS";
 String messageToScroll = "Farming through Technology";
 String pump_status = "";
@@ -47,7 +48,8 @@ void setup()
   lcd.setCursor(0, 0);
   lcd.print("SMAS");
   scrollText(messageToScroll, 300, lcdColumns);
-  delay(2000);
+  pinMode(pirPin, INPUT);
+  delay(500);
 }
 
 void loop()
@@ -57,7 +59,7 @@ void loop()
   
   int temp = dht.readTemperature();
   int humidity = dht.readHumidity();
-  delay(2000);
+  delay(1000);
   int sensor_analog = analogRead(sensor_pin);
   int moisture = ( 100 - ( (sensor_analog/4095.000) * 100 ) );
   disp(temp, humidity, moisture, pump_status);
@@ -70,6 +72,14 @@ void loop()
     Blynk.virtualWrite(V4, 1);
   else
     Blynk.virtualWrite(V4, 0);
+  int pirValue = digitalRead(pirPin); 
+
+  if (pirValue == HIGH) {
+    Serial.println("Motion detected!");
+  }
+  else{
+    Serial.println("NO Motion");
+  }
 }
 
 // Function to scroll text
