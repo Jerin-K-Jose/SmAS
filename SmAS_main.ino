@@ -23,9 +23,9 @@ LiquidCrystal_I2C lcd(0x27, lcdColumns, lcdRows);
 DHT dht(dhtPin, DHT11);
 
 // WiFi credentials
-char auth[] = "UPosKYIbfjiyCjz4peG7tSg4TlTp1D9F";
-char ssid[] = "JKJ iPhone";
-char password[] = "9895524301";
+char auth[] = "";
+char ssid[] = "";
+char password[] = "";
 
 void setup()
 {
